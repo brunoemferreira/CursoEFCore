@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CursoEFCore.Data", "CursoEF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CursoEFCore.Model", "CursoEFCore.Model\CursoEFCore.Model.csproj", "{3F0B8338-2028-4189-BDD7-73862C70485D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CursoEFCore.Application", "CursoEFCore.Application\CursoEFCore.Application.csproj", "{F14B6180-9294-477E-AEF2-AECCD978F8C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{3F0B8338-2028-4189-BDD7-73862C70485D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F0B8338-2028-4189-BDD7-73862C70485D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F0B8338-2028-4189-BDD7-73862C70485D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F14B6180-9294-477E-AEF2-AECCD978F8C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F14B6180-9294-477E-AEF2-AECCD978F8C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F14B6180-9294-477E-AEF2-AECCD978F8C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F14B6180-9294-477E-AEF2-AECCD978F8C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
