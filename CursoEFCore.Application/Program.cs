@@ -13,11 +13,34 @@ namespace CursoEFCore.Application
             // StartMigration();
 
             // Insere o Registro no banco de Dados 
-            InserirDados();
+            // InserirDados();
+            //InserirDadosEmMassa();
+            ConsultarDados();
+        }
+        private static void ConsultarDados()
+        {
+            using var db = new Data.Context.ApplicationContext();
+            // Modos de Consulta os dois retornam o mesmo valor porem um é por sintaxe e o outro por Método
+            // 1º Modo de Consulta por Sintaxe
+            // var consultaPorSintaxe = (from c in db.Clientes where c.Id > 0 select c).ToList();
+            // 2º Modo de Consulta por Método
+            var consultaPorMetodo = db.Clientes
+            .Where(p => p.Id > 0)
+            .OrderBy(p => p.Id > 0)
+            .ToList();
+            foreach (var cliente in consultaPorMetodo)
+            {
+                Console.WriteLine($"Consultando o Cliente: {cliente.Id}");
+               // db.Clientes.Find(cliente.Id);
+               db.Clientes.FirstOrDefault( p => p.Id == cliente.Id);
+            }
+
+
         }
 
         private static void StartMigration()
         {
+
             using var db = new Data.Context.ApplicationContext();
 
             var existsPendingMigrations = db.Database.GetPendingMigrations().Any();
@@ -60,5 +83,33 @@ namespace CursoEFCore.Application
             var registros = db.SaveChanges();
             Console.WriteLine($"Total de registro(s): {registros}");
         }
+
+        private static void InserirDadosEmMassa()
+        {
+            var produto = new Produto
+            {
+                Descricao = "Produto Teste",
+                CodigoBarras = "12345612345651",
+                Valor = 10m,
+                TipoProduto = TipoProduto.MercadoriaParaRevenda,
+                Ativo = true
+            };
+
+            var cliente = new Cliente
+            {
+                Nome = "Produto Teste",
+                CEP = "13060611",
+                Cidade = "Campinas",
+                Estado = "SP",
+                Telefone = "19992922054"
+            };
+
+            using var db = new Data.Context.ApplicationContext();
+            db.AddRange(produto, cliente);
+
+            var registros = db.SaveChanges();
+            Console.WriteLine($"Total de registro(s): {registros}");
+        }
+
     }
 }
