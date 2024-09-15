@@ -14,11 +14,61 @@ namespace CursoEFCore.Application
 
             // Insere o Registro no banco de Dados 
             // InserirDados();
-            //InserirDadosEmMassa();
+            // InserirDadosEmMassa();
             // ConsultarDados();
-            CadastrarPedido();
+            // CadastrarPedido();
+            // ConsultarPedidoCarregamentoAdiantado();
+            // AtualizarDados();
+            RemoverRegistro();
+        }
+        
+        private static void RemoverRegistro()
+        {
+            using var db = new Data.ApplicationContext();
+
+            //var cliente = db.Clientes.Find(2);
+            var cliente = new Cliente { Id = 3 };
+            //db.Clientes.Remove(cliente);
+            //db.Remove(cliente);
+            db.Entry(cliente).State = EntityState.Deleted;
+
+            db.SaveChanges();
         }
 
+        private static void AtualizarDados()
+        {
+            using var db = new Data.ApplicationContext();
+            //var cliente = db.Clientes.Find(1);
+
+            var cliente = new Cliente
+            {
+                Id = 1
+            };
+
+            var clienteDesconectado = new
+            {
+                Nome = "Cliente Desconectado Passo 3",
+                Telefone = "7966669999"
+            };
+
+            db.Attach(cliente);
+            db.Entry(cliente).CurrentValues.SetValues(clienteDesconectado);
+
+            //db.Clientes.Update(cliente);
+            db.SaveChanges();
+        }
+
+        private static void ConsultarPedidoCarregamentoAdiantado()
+        {
+            using var db = new Data.ApplicationContext();
+            var pedidos = db
+                .Pedidos
+                .Include(p => p.Itens)
+                    .ThenInclude(p => p.Produto)
+                .ToList();
+
+            Console.WriteLine(pedidos.Count);
+        }
         private static void CadastrarPedido()
         {
             using var db = new Data.ApplicationContext();
@@ -48,7 +98,7 @@ namespace CursoEFCore.Application
             db.Pedidos.Add(pedido);
             db.SaveChanges();
         }
-        
+
         private static void ConsultarDados()
         {
             using var db = new Data.ApplicationContext();
