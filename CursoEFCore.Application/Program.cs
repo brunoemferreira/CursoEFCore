@@ -15,11 +15,43 @@ namespace CursoEFCore.Application
             // Insere o Registro no banco de Dados 
             // InserirDados();
             //InserirDadosEmMassa();
-            ConsultarDados();
+            // ConsultarDados();
+            CadastrarPedido();
         }
+
+        private static void CadastrarPedido()
+        {
+            using var db = new Data.ApplicationContext();
+
+            var cliente = db.Clientes.FirstOrDefault();
+            var produto = db.Produtos.FirstOrDefault();
+
+            var pedido = new Pedido
+            {
+                ClienteId = cliente.Id,
+                IniciadoEm = DateTime.Now,
+                FinalizadoEm = DateTime.Now,
+                Observacao = "Pedido Teste",
+                Status = StatusPedido.Analise,
+                TipoFrete = TipoFrete.SemFrete,
+                Itens = new List<PedidoItem>
+                {
+                  new PedidoItem {
+                    ProdutoId = produto.Id,
+                    Desconto = 0,
+                    Quantidade = 1,
+                    Valor = 10,
+                  }
+                }
+            };
+
+            db.Pedidos.Add(pedido);
+            db.SaveChanges();
+        }
+        
         private static void ConsultarDados()
         {
-            using var db = new Data.Context.ApplicationContext();
+            using var db = new Data.ApplicationContext();
             // Modos de Consulta os dois retornam o mesmo valor porem um é por sintaxe e o outro por Método
             // 1º Modo de Consulta por Sintaxe
             // var consultaPorSintaxe = (from c in db.Clientes where c.Id > 0 select c).ToList();
@@ -31,17 +63,15 @@ namespace CursoEFCore.Application
             foreach (var cliente in consultaPorMetodo)
             {
                 Console.WriteLine($"Consultando o Cliente: {cliente.Id}");
-               // db.Clientes.Find(cliente.Id);
-               db.Clientes.FirstOrDefault( p => p.Id == cliente.Id);
+                // db.Clientes.Find(cliente.Id);
+                db.Clientes.FirstOrDefault(p => p.Id == cliente.Id);
             }
-
-
         }
 
         private static void StartMigration()
         {
 
-            using var db = new Data.Context.ApplicationContext();
+            using var db = new Data.ApplicationContext();
 
             var existsPendingMigrations = db.Database.GetPendingMigrations().Any();
             if (existsPendingMigrations)
@@ -65,7 +95,7 @@ namespace CursoEFCore.Application
                 Ativo = true
             };
 
-            using var db = new Data.Context.ApplicationContext();
+            using var db = new Data.ApplicationContext();
 
             /*  Formas de rastrear para Inserir o Produto no Banco de Dados 
              *  As 1ª e 2ª Formas São as mais indicadas 
@@ -104,12 +134,11 @@ namespace CursoEFCore.Application
                 Telefone = "19992922054"
             };
 
-            using var db = new Data.Context.ApplicationContext();
+            using var db = new Data.ApplicationContext();
             db.AddRange(produto, cliente);
 
             var registros = db.SaveChanges();
             Console.WriteLine($"Total de registro(s): {registros}");
         }
-
     }
 }

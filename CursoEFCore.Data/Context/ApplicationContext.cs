@@ -2,7 +2,7 @@ using CursoEFCore.Model.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace CursoEFCore.Data.Context
+namespace CursoEFCore.Data
 {
     public class ApplicationContext : DbContext
     {
