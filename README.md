@@ -3,7 +3,7 @@
   <img src="https://github.com/user-attachments/assets/16a20c8d-4249-49a5-8582-28e6e91a8cce" alt="logo curso">
 </div>
 
-Iniciado em :   - Finalizado em : 14/09/2024
+Finalizado em : 14/09/2024
 
 ## O que Aprendi
 * _**Fundamentos do Entity Framework Core**_: Começamos entendendo o que é um ORM e a diferença entre orientação a objetos e modelo relacional. A história do Entity Framework Core também foi abordada, o que ajudou a contextualizar sua evolução.
